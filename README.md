@@ -27,25 +27,45 @@
 
 🛠️ Tech Stack
 Category	Technology
+
 Backend	Java (Spring Boot 3.2), Spring Security, Spring AOP, Hibernate
+
 Database	PostgreSQL, MongoDB, MySQL
+
 Message Queue	Kafka (Schema Change Events)
+
 Service Discovery	Eureka Server
+
 Logging & Monitoring	Prometheus, Grafana, ELK Stack
+
 Containerization	Docker, Kubernetes
+
 Frontend (Future)	Angular, TypeScript
+
 API Security	JWT, OAuth2 (Keycloak)
+
 📂 Microservices Architecture
+
 Service	Responsibilities	Port
+
 API Gateway	Routes API requests, handles authentication	8080
+
 Auth Service	JWT, OAuth2 authentication, user roles	8081
+
 Versioning Service	Tracks schema & data changes, manages rollbacks	8082
+
 Query Service	Handles time-travel queries & versioned data retrieval	8083
+
 Storage Service	Stores schema & data versions efficiently	8084
+
 Notification Service	Sends alerts for schema changes & conflicts	8085
+
 Eureka Server	Service discovery for microservices	8761
+
 🔧 Installation & Setup
+
 📌 Prerequisites
+
 Ensure you have the following installed:
 
 Java 17+
@@ -54,18 +74,21 @@ Docker & Docker Compose
 Kafka & Zookeeper
 PostgreSQL & MongoDB
 Prometheus & Grafana
+
 1️⃣ Clone the Repository
 sh
 Copy
 Edit
 git clone https://github.com/yourusername/CodeFlowDB.git
 cd CodeFlowDB
+
 2️⃣ Start Eureka Server
 sh
 Copy
 Edit
 cd eureka-server
 mvn spring-boot:run
+
 3️⃣ Start Kafka & Zookeeper
 Run the following commands inside Kafka directory:
 
@@ -74,6 +97,7 @@ Copy
 Edit
 bin\windows\zookeeper-server-start.bat config\zookeeper.properties
 bin\windows\kafka-server-start.bat config\server.properties
+
 4️⃣ Start Microservices
 Run each service in separate terminals:
 
@@ -85,11 +109,13 @@ cd versioning-service && mvn spring-boot:run
 cd query-service && mvn spring-boot:run
 cd storage-service && mvn spring-boot:run
 cd notification-service && mvn spring-boot:run
+
 5️⃣ Run Docker Containers (Optional)
 sh
 Copy
 Edit
 docker-compose up -d
+
 🛠 API Endpoints
 Service	Method	Endpoint	Description
 Auth Service	POST	/auth/login	Login & generate JWT
@@ -98,28 +124,38 @@ Versioning Service	POST	/schema/save	Save a new schema version
 Versioning Service	GET	/schema/history/{id}	Get schema history
 Query Service	GET	/query/timetravel?timestamp=2024-01-01	Fetch data at past timestamp
 Notification Service	GET	/notifications	Get schema change alerts
+
 🚀 Roadmap
 Phase 1: Core Development
+
 ✅ Implement Microservices Architecture
+
 ✅ Build Schema Versioning APIs
+
 ✅ Integrate PostgreSQL, MongoDB, and MySQL
 
 Phase 2: Security & Monitoring
+
 🔄 Implement JWT & OAuth Authentication
+
 🔄 Setup Prometheus & Grafana for Monitoring
 
 Phase 3: Frontend & Cloud Deployment
+
 🔄 Develop Angular UI for Schema Management
+
 🔄 Deploy on AWS/Kubernetes
 
 🛠️ Contribution Guidelines
 Want to contribute? Follow these steps:
 
 Fork the repository
+
 Create a feature branch (git checkout -b feature-name)
 Commit your changes (git commit -m "Added feature")
 Push to GitHub (git push origin feature-name)
 Create a Pull Request
+
 📜 License
 MIT License - Use this project freely with attribution.
 
