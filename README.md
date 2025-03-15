@@ -112,8 +112,11 @@ Create a Pull Request
 MIT License - Use this project freely with attribution.
 
 📞 Contact
+
 👤 Bhavesh Mahajan
+
 📩 Email: bhmahajan055@gmail.com
+
 🔗 LinkedIn: linkedin.com/in/bhavesh-mahajan007
 
 🚀 Ready to Get Started?
