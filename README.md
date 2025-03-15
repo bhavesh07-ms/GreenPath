@@ -1,16 +1,28 @@
 📌 CodeFlowDB - Git-Like Version Control for Databases
+
 🔹 CodeFlowDB is a scalable, modern database versioning system that provides Git-like version control for relational & NoSQL databases.
+
 🔹 It enables schema versioning, branching, merging, rollback, and time-travel queries, ensuring that database changes are tracked efficiently across multiple environments.
 
 🚀 Features
+
 ✅ Schema Versioning – Track all changes to database schema in a version-controlled way.
+
 ✅ Time-Travel Queries – Query data as it existed at any past timestamp.
+
 ✅ Branching & Merging – Isolate database changes in separate branches and merge them safely.
+
 ✅ Automatic Sync with Spring Boot Entities – Detect JPA model changes and update schemas automatically.
+
 ✅ Multi-Database Support – Works with PostgreSQL, MongoDB, and MySQL.
+
 ✅ Kafka Event-Driven Architecture – Broadcast schema changes to dependent services.
+
 ✅ Role-Based Security (JWT, OAuth) – Secure API endpoints for version control.
+
 ✅ Monitoring with Prometheus & Grafana – Track schema change logs and system performance.
+
+
 ✅ Microservices Architecture – Built with Spring Boot, Kafka, Docker, and Kubernetes.
 
 🛠️ Tech Stack
