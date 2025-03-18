@@ -8,18 +8,27 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="versioning-service" />
-        <module name="auth-service" />
         <module name="query-service" />
         <module name="api-gateway" />
         <module name="codeflowdb" />
         <module name="storage-service" />
-        <module name="eureka-server" />
         <module name="notification-service" />
+      </profile>
+      <profile name="Annotation profile for try" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+        </processorPath>
+        <module name="eureka-server" />
+        <module name="auth-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="auth-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
     </option>
   </component>
