@@ -10,11 +10,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class App 
+public class GateWayApp
 {
     public static void main( String[] args )
     {
-        SpringApplication.run(App.class);
-        System.out.println( "Hello World!" );
+        SpringApplication.run(GateWayApp.class);
     }
 }

@@ -4,8 +4,35 @@ server:
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE  # Using Eureka service discovery
+          predicates:
+            - Path=/notify/**
+#        - id: auth-service
+#          uri: lb://auth-service
+#          predicates:
+#            - Path=/auth/**
+#        - id: versioning-service
+#          uri: lb://versioning-service
+#          predicates:
+#            - Path=/versioning/**
+#        - id: query-service
+#          uri: lb://query-service
+#          predicates:
+#            - Path=/query/**
+
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+

@@ -1,18 +1,17 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
-    name: auth-service
+    name: codeflowdb
 
 
 eureka:
+  instance:
+    hostname: localhost
   client:
     serviceUrl:
       defaultZone: http://localhost:8761
     register-with-eureka: true
     fetch-registry: true
-
-
-  instance:
     preferIpAddress: true

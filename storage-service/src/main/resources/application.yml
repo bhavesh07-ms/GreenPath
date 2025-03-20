@@ -5,20 +5,20 @@ spring:
   application:
     name: storage-service
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/storagedb
-    username: postgres
-    password: password
-    driver-class-name: org.postgresql.Driver
-
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/storage
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/storagedb
+#    username: postgres
+#    password: password
+#    driver-class-name: org.postgresql.Driver
+#
+#  data:
+#    mongodb:
+#      uri: mongodb://localhost:27017/storage
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
 
 eureka:
   client:

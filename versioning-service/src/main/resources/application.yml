@@ -5,16 +5,7 @@ spring:
   application:
     name: versioning-service
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/versiondb
-    username: postgres
-    password: password
-    driver-class-name: org.postgresql.Driver
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+#  s
 
 kafka:
   bootstrap-servers: localhost:9092

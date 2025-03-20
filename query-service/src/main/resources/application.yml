@@ -5,18 +5,24 @@ spring:
   application:
     name: query-service
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/querydb
-    username: postgres
-    password: password
-    driver-class-name: org.postgresql.Driver
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/querydb
+#    username: postgres
+#    password: password
+#    driver-class-name: org.postgresql.Driver
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://localhost:8761
+    register-with-eureka: true
+    fetch-registry: true
+
+
+  instance:
+    preferIpAddress: true
