@@ -8,24 +8,18 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="versioning-service" />
-        <module name="codeflowdb" />
-        <module name="storage-service" />
-        <module name="query-service" />
-      </profile>
-      <profile name="Annotation profile for try" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
-        </processorPath>
-        <module name="api-gateway" />
-        <module name="auth-service" />
-        <module name="eureka-server" />
-        <module name="notification-service" />
-        <module name="schema-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-gateway" target="17" />
+      <module name="auth-service" target="17" />
+      <module name="codeflowdb" target="1.8" />
+      <module name="eureka-server" target="17" />
+      <module name="notification-service" target="17" />
+      <module name="query-service" target="1.8" />
+      <module name="schema-service" target="17" />
+      <module name="storage-service" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
