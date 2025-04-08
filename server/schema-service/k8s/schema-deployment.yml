@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: schema-service
+  name: schema-service-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: schema-service
+      app: schema-service-app
   template:
     metadata:
       labels:
-        app: schema-service
+        app: schema-service-app
     spec:
       containers:
         - name: schema-service
-          image: bhavesh07/schema-service:latest
+          image: bhavesh0731/schema-service:latest
           ports:
             - containerPort: 8081

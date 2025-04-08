@@ -5,10 +5,10 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy JAR file from target folder to container
-COPY target/schema-service-0.0.1-SNAPSHOT.jar app.jar
+COPY target/auth-service-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port
-EXPOSE 8081
+EXPOSE 8082
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]

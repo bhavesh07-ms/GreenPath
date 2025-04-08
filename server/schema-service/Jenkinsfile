@@ -1,0 +1,42 @@
+pipeline {
+	agent any
+
+    environment {
+		IMAGE_NAME = "bhavesh0731/schema-service"
+        IMAGE_TAG = "latest"
+    }
+
+    stages {
+		stage('Checkout Code') {
+			steps {
+				git branch: 'release', url: 'https://github.com/bhavesh07-ms/CodeFlowDB.git'
+            }
+        }
+
+        stage('Build Jar') {
+			steps {
+				dir('schema-service') {
+					sh 'mvn clean install -DskipTests'
+                }
+            }
+        }
+
+        stage('Docker Build & Push') {
+			steps {
+				dir('schema-service') {
+					sh "docker build -t $IMAGE_NAME:$IMAGE_TAG ."
+                    sh "docker push $IMAGE_NAME:$IMAGE_TAG"
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+			steps {
+				dir('schema-service/k8s') {
+					sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f service.yaml'
+                }
+            }
+        }
+    }
+}

@@ -5,96 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1357492f-73b1-416b-b1bd-0a79ca5c39c3" name="Changes" comment="kafka working fine with docker">
-      <change afterPath="$PROJECT_DIR$/server/schema-service/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/schema-service/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/schema-service/k8s/configmap.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/schema-service/k8s/schema-deployment.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/schema-service/k8s/schema-service.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/schema-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/auth-service/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/auth-service/Jenkinsfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/auth-service/k8s/auth-deployment.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/auth-service/k8s/auth-service.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/schema-service/Jenkinsfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/codeflowdb/GateWayApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/src/main/java/com/codeflowdb/GateWayApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/src/test/java/com/codeflowdb/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/target/classes/com/codeflowdb/GateWayApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/target/classes/com/codeflowdb/GateWayApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/target/classes/com/codeflowdb/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/api-gateway/target/classes/com/codeflowdb/config/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/codeflowdb/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/java/com/codeflowdb/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/codeflowdb/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/java/com/codeflowdb/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/codeflowdb/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/java/com/codeflowdb/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/codeflowdb/payloads/SignUpDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/java/com/codeflowdb/payloads/SignUpDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/codeflowdb/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/java/com/codeflowdb/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/java/com/codeflowdb/security/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/java/com/codeflowdb/security/JwtUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/src/test/java/com/codeflowdb/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/codeflowdb/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/com/codeflowdb/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/codeflowdb/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/com/codeflowdb/config/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/codeflowdb/controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/com/codeflowdb/controllers/UserController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/codeflowdb/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/com/codeflowdb/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/codeflowdb/payloads/SignUpDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/com/codeflowdb/payloads/SignUpDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/codeflowdb/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/com/codeflowdb/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth-service/target/classes/com/codeflowdb/security/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/target/classes/com/codeflowdb/security/JwtUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/codeflowdb/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/codeflowdb/src/main/java/com/codeflowdb/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/codeflowdb/src/test/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/codeflowdb/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/codeflowdb/target/classes/com/codeflowdb/App.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/eureka-server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/src/main/java/com/codeflowdb/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/eureka-server/src/main/java/com/codeflowdb/EurekaServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/src/main/java/com/codeflowdb/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/eureka-server/src/main/java/com/codeflowdb/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/eureka-server/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/eureka-server/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/eureka-server/src/test/java/com/codeflowdb/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/database/database.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/infra/database/database.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/database/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/infra/database/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/infra/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/infra.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/infra/infra.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infra/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/infra/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrasstructure/infrastructure.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrasstructure/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/infrastructure.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/infrastructure/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/codeflowdb/NotifyApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/src/main/java/com/codeflowdb/NotifyApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/codeflowdb/controllers/TestControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/src/main/java/com/codeflowdb/controllers/TestControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/src/test/java/com/codeflowdb/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/target/classes/com/codeflowdb/NotifyApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/target/classes/com/codeflowdb/NotifyApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/target/classes/com/codeflowdb/config/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/target/classes/com/codeflowdb/config/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/target/classes/com/codeflowdb/controllers/TestControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/notificaion-service/target/classes/com/codeflowdb/controllers/TestControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/query-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/query-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/query-service/src/main/java/com/codeflowdb/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/query-service/src/main/java/com/codeflowdb/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/query-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/query-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/query-service/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/query-service/src/test/java/com/codeflowdb/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/query-service/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/query-service/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/query-service/target/classes/com/codeflowdb/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/query-service/target/classes/com/codeflowdb/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/config/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/config/KafkaConsumerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/config/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/config/KafkaProducerConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/controller/SchemaChangeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/controller/SchemaChangeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/kafka/SchemaChangeConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/kafka/SchemaChangeConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/kafka/SchemaChangeProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/kafka/SchemaChangeProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/kafka/SchemaNotificationConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/kafka/SchemaNotificationConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema-service/src/main/java/org/app/kafka/SchemaRollbackConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/src/main/java/org/app/kafka/SchemaRollbackConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/storage-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage-service/src/main/java/com/codeflowdb/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/storage-service/src/main/java/com/codeflowdb/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/storage-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage-service/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/storage-service/src/test/java/com/codeflowdb/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/versioning-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/versioning-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/versioning-service/src/main/java/com/codeflowdb/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/versioning-service/src/main/java/com/codeflowdb/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/versioning-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/versioning-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/versioning-service/src/test/java/com/codeflowdb/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/versioning-service/src/test/java/com/codeflowdb/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/auth-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/schema-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/schema-service/k8s/schema-deployment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/k8s/schema-deployment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/schema-service/k8s/schema-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/k8s/schema-service.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/schema-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/schema-service/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,7 +74,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/CodeFlowDB/server",
+    "last_opened_file_path": "E:/CodeFlowDB",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"

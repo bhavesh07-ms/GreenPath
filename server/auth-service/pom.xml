@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>com.codeflow</groupId>
-  <artifactId>try</artifactId>
+  <artifactId>auth-service</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>try</name>
   <description>trying to run</description>
@@ -45,6 +45,13 @@
       <artifactId>jjwt</artifactId>
       <version>0.12.6</version>
     </dependency>
+      <!-- JUnit 4 -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.13.2</version>
+        <scope>test</scope>
+      </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>

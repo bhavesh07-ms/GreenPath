@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: schema-service
+  name: auth-service
 spec:
   selector:
-    app: schema-service
+    app: auth-service
   ports:
     - protocol: TCP
-      port: 80          # The port exposed by the service
-      targetPort: 8081  # The port inside the pod
+      port: 80       # The port exposed by the service
+      targetPort: 8082  # The port inside the pod
   type: LoadBalancer    # Exposes service to the internet (for AWS, GCP, Azure)

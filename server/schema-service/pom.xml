@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.codeflow</groupId>
-    <artifactId>try</artifactId>
+    <artifactId>schema-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>try</name>
     <description>trying to run</description>
