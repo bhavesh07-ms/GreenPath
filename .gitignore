@@ -1,6 +1,5 @@
 # Project exclude paths
 .idea/
-.github/.idea/
 server/.idea/
 server/eureka-server/target/
 server/auth-service/target/
