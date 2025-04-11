@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1357492f-73b1-416b-b1bd-0a79ca5c39c3" name="Changes" comment="cd 2nd">
+    <list default="true" id="1357492f-73b1-416b-b1bd-0a79ca5c39c3" name="Changes" comment="cd 3rd">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/cd.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/cd.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -261,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744201931530</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="cd 3rd">
+      <option name="closed" value="true" />
+      <created>1744357197222</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744357197222</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -274,7 +283,8 @@
     <MESSAGE value="ci-cd 3rd" />
     <MESSAGE value="cd 1st" />
     <MESSAGE value="cd 2nd" />
-    <option name="LAST_COMMIT_MESSAGE" value="cd 2nd" />
+    <MESSAGE value="cd 3rd" />
+    <option name="LAST_COMMIT_MESSAGE" value="cd 3rd" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

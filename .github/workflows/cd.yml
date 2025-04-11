@@ -11,10 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set K8s Context
-        run: |
-          minikube update-context
-
-      - name: Deploy to Minikube
-        run: |
-          kubectl apply -f k8s/
+      - name: SSH to Local & Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}            # your local public IP or static IP
+          username: ${{ secrets.SSH_USERNAME }}    # your laptop username
+          key: ${{ secrets.SSH_PRIVATE_KEY }}      # private key added in GitHub secrets
+          script: |
+            cd E:\CodeFlowDB
+            git pull origin main
+            kubectl apply -f k8s/
+            kubectl get pods
