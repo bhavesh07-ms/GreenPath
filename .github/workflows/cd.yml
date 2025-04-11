@@ -1,10 +1,7 @@
 name: CD Pipeline
 
 on:
-  workflow_run:
-    workflows: ["auth-ci.yml","schema-ci.yml"]
-    types:
-      - completed
+  workflow_dispatch:
 
 jobs:
   deploy:
