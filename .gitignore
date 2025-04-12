@@ -4,4 +4,11 @@ server/.idea/
 server/eureka-server/target/
 server/auth-service/target/
 server/schema-service/target/
+aws/.idea
+#server/carbon-service/src/test
+#server/auth-service/src/test
+#server/eureka-server/src/test
+#server/greenpath-service/src/test
+#server/notification-service/src/test
+#server/route-service/src/test
 
