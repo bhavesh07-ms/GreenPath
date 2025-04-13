@@ -5,16 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1357492f-73b1-416b-b1bd-0a79ca5c39c3" name="Changes" comment="cd 4th">
-      <change afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/controllers/RouteController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/dto/LocationRequestDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/service/RouteService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/service/impl/RouteServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/route-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/controllers/TestControl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/dto/RequestDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/dto/ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/dto/LocationResponseDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/model/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/model/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/repository/LocationRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/repository/LocationRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/service/impl/RouteServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/route-service/src/main/java/com/codeflowdb/service/impl/RouteServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

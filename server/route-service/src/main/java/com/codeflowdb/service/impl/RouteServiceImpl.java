@@ -7,17 +7,25 @@ import com.codeflowdb.repository.LocationRepo;
 import com.codeflowdb.service.RouteService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+
+@Service
 public class RouteServiceImpl implements RouteService {
 
     private final LocationRepo locationRepository;
     private final ModelMapper modelMapper;
+
+    public RouteServiceImpl(LocationRepo locationRepository, ModelMapper modelMapper) {
+        this.locationRepository = locationRepository;
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public LocationResponseDTO saveLocation(LocationRequestDTO dto) {
