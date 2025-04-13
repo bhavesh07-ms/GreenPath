@@ -15,7 +15,7 @@ public class TestControl {
         return "Schema Change Request Sent!";
     }
 
-    @GetMapping("//routes/{start}/to/{end}")
+    @GetMapping("/routes/{start}/to/{end}")
     public String applySchemaChage(@RequestBody String schemaChange) {
 
         return "Schema Change Request Sent!";
