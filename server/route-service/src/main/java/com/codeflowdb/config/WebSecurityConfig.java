@@ -1,5 +1,6 @@
 package com.codeflowdb.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,4 +18,10 @@ public class WebSecurityConfig {
 
         return http.build();
     }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
 }
