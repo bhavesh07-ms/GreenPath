@@ -38,4 +38,27 @@ public class RouteController {
                                                                      @PathVariable String end) {
         return ResponseEntity.ok(routeService.getRouteBetween(start, end));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<LocationResponseDTO> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(routeService.getLocationById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<LocationResponseDTO> update(@PathVariable Long id, @RequestBody LocationRequestDTO dto) {
+        return ResponseEntity.ok(routeService.updateLocation(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        routeService.deleteLocation(id);
+        return ResponseEntity.ok("Location deleted");
+    }
+
+
+    @GetMapping("/search")
+    public ResponseEntity<List<LocationResponseDTO>> searchByName(@RequestParam String name) {
+        return ResponseEntity.ok(routeService.searchByName(name));
+    }
+
 }
