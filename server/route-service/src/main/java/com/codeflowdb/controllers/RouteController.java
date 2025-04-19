@@ -61,4 +61,10 @@ public class RouteController {
         return ResponseEntity.ok(routeService.searchByName(name));
     }
 
+    @GetMapping("/optimal-path")
+    public ResponseEntity<List<String>> getBestPath(@RequestParam String source, @RequestParam String destination) {
+        List<String> path = routeService.getBestRoute(source, destination);
+        return ResponseEntity.ok(path);
+    }
+
 }

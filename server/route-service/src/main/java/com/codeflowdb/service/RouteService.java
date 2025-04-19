@@ -20,4 +20,6 @@ public interface RouteService {
     List<LocationResponseDTO> getRouteBetween(String from, String to);
 
     List<LocationResponseDTO> searchByName(String name);
+
+    public List<String> getBestRoute(String source, String destination);
 }

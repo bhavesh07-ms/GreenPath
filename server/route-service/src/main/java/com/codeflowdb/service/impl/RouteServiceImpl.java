@@ -4,15 +4,14 @@ import com.codeflowdb.dto.LocationRequestDTO;
 import com.codeflowdb.dto.LocationResponseDTO;
 import com.codeflowdb.model.Location;
 import com.codeflowdb.repository.LocationRepo;
+import com.codeflowdb.route.DjkstraAlgorithm;
+import com.codeflowdb.route.DjkstraAlgorithm.RouteEdge;
 import com.codeflowdb.service.RouteService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -85,5 +84,15 @@ public class RouteServiceImpl implements RouteService {
         return locationRepository.findByNameContainingIgnoreCase(name).stream()
                 .map(loc -> modelMapper.map(loc, LocationResponseDTO.class))
                 .collect(Collectors.toList());
+    }
+    public List<String> getBestRoute(String source, String destination) {
+        // Simulated map
+        Map<String, List<RouteEdge>> graph = new HashMap<>();
+        graph.put("A", Arrays.asList(new RouteEdge("B", 2), new RouteEdge("C", 4)));
+        graph.put("B", Arrays.asList(new RouteEdge("C", 1), new RouteEdge("D", 7)));
+        graph.put("C", Arrays.asList(new RouteEdge("D", 3)));
+        graph.put("D", new ArrayList<>());
+
+        return DjkstraAlgorithm.findShortestPath(source, destination, graph);
     }
 }
