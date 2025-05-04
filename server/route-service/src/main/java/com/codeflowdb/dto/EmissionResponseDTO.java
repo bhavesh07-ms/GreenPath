@@ -1,7 +1,10 @@
 package com.codeflowdb.dto;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class EmissionResponseDTO {
     private List<String> route;
     private double totalDistance;

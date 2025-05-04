@@ -1,5 +1,8 @@
 package com.codeflowdb.dto;
 
+import lombok.Data;
+
+@Data
 public class LocationResponseDTO {
     private Long id;
     private String name;

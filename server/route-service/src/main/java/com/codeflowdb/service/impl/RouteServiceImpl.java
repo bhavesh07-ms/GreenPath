@@ -116,21 +116,46 @@ public class RouteServiceImpl implements RouteService {
             throw new IllegalArgumentException("Invalid transport mode: " + transportMode);
         }
 
+        List<Location> locations = locationRepository.findAll();
         Map<String, List<RouteEdge>> graph = new HashMap<>();
-        graph.put("A", Arrays.asList(new RouteEdge("B", 2), new RouteEdge("C", 4)));
-        graph.put("B", Arrays.asList(new RouteEdge("C", 1), new RouteEdge("D", 7)));
-        graph.put("C", Arrays.asList(new RouteEdge("D", 3)));
-        graph.put("D", new ArrayList<>());
 
-        List<String> path = DjkstraAlgorithm.findShortestPath(source, destination, graph);
-        if (path == null || path.isEmpty()) {
-            throw new RuntimeException("No route found between " + source + " and " + destination);
+        // Build the graph with real distances
+        for (Location from : locations) {
+            List<RouteEdge> edges = new ArrayList<>();
+            for (Location to : locations) {
+                if (!from.equals(to)) {
+                    double distance = calculateHaversineDistance(
+                            from.getLatitude(), from.getLongitude(),
+                            to.getLatitude(), to.getLongitude()
+                    );
+                    edges.add(new RouteEdge(to.getName(), distance));
+                }
+            }
+            graph.put(from.getName(), edges);
         }
 
+        // Find best path
+        List<String> path = DjkstraAlgorithm.findShortestPath(source, destination, graph);
+        if (path == null || path.size() <= 1) {
+            throw new RuntimeException("No valid route found between " + source + " and " + destination);
+        }
+
+        // Calculate total distance and emissions
         double totalDistance = calculateDistanceFromPath(path, graph);
         double emission = calculateCarbonEmission(totalDistance, transportMode);
 
         return new EmissionResponseDTO(path, totalDistance, emission);
+    }
+
+    private double calculateHaversineDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // Earth's radius in km
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
     }
 
     private boolean isValidTransportMode(String transportMode) {
