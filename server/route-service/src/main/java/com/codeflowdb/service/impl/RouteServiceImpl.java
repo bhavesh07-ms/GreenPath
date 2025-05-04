@@ -87,27 +87,46 @@ public class RouteServiceImpl implements RouteService {
     }
     @Override
     public List<LocationResponseDTO> getBestRoute(String source, String destination) {
-        // Simulated map
+        List<Location> locations = locationRepository.findAll();
+
+        if (locations.isEmpty()) {
+            throw new RuntimeException("No locations found in the system.");
+        }
+
+        // Build graph based on distances between all known locations
         Map<String, List<RouteEdge>> graph = new HashMap<>();
-        graph.put("A", Arrays.asList(new RouteEdge("B", 2), new RouteEdge("C", 4)));
-        graph.put("B", Arrays.asList(new RouteEdge("C", 1), new RouteEdge("D", 7)));
-        graph.put("C", Arrays.asList(new RouteEdge("D", 3)));
-        graph.put("D", new ArrayList<>());
+        for (Location from : locations) {
+            List<RouteEdge> edges = new ArrayList<>();
+            for (Location to : locations) {
+                if (!from.getName().equals(to.getName())) {
+                    double distance = calculateDistance(from.getLatitude(), from.getLongitude(), to.getLatitude(), to.getLongitude());
+                    edges.add(new RouteEdge(to.getName(), (int) Math.round(distance)));
+                }
+            }
+            graph.put(from.getName(), edges);
+        }
 
         List<String> path = DjkstraAlgorithm.findShortestPath(source, destination, graph);
         if (path == null || path.isEmpty()) {
             throw new RuntimeException("No route found between " + source + " and " + destination);
         }
 
-        List<LocationResponseDTO> routeDTOs = path.stream()
-                .map(locationName -> {
-                    Optional<Location> locationOpt = locationRepository.findByName(locationName);
-                    return locationOpt.map(location -> modelMapper.map(location, LocationResponseDTO.class))
-                            .orElseThrow(() -> new RuntimeException("Location not found: " + locationName));
-                })
+        return path.stream()
+                .map(name -> locationRepository.findByName(name)
+                        .map(loc -> modelMapper.map(loc, LocationResponseDTO.class))
+                        .orElseThrow(() -> new RuntimeException("Location not found: " + name)))
                 .collect(Collectors.toList());
+    }
 
-        return routeDTOs;
+    private double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
+        final int R = 6371; // Radius of the Earth in km
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // Distance in km
     }
 
     @Override
