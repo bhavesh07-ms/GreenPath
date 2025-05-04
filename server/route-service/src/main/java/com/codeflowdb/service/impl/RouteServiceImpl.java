@@ -1,5 +1,6 @@
 package com.codeflowdb.service.impl;
 
+import com.codeflowdb.dto.EmissionResponseDTO;
 import com.codeflowdb.dto.LocationRequestDTO;
 import com.codeflowdb.dto.LocationResponseDTO;
 import com.codeflowdb.model.Location;
@@ -7,7 +8,6 @@ import com.codeflowdb.repository.LocationRepo;
 import com.codeflowdb.route.DjkstraAlgorithm;
 import com.codeflowdb.route.DjkstraAlgorithm.RouteEdge;
 import com.codeflowdb.service.RouteService;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -85,7 +85,8 @@ public class RouteServiceImpl implements RouteService {
                 .map(loc -> modelMapper.map(loc, LocationResponseDTO.class))
                 .collect(Collectors.toList());
     }
-    public List<String> getBestRoute(String source, String destination) {
+    @Override
+    public List<LocationResponseDTO> getBestRoute(String source, String destination) {
         // Simulated map
         Map<String, List<RouteEdge>> graph = new HashMap<>();
         graph.put("A", Arrays.asList(new RouteEdge("B", 2), new RouteEdge("C", 4)));
@@ -93,6 +94,70 @@ public class RouteServiceImpl implements RouteService {
         graph.put("C", Arrays.asList(new RouteEdge("D", 3)));
         graph.put("D", new ArrayList<>());
 
-        return DjkstraAlgorithm.findShortestPath(source, destination, graph);
+        List<String> path = DjkstraAlgorithm.findShortestPath(source, destination, graph);
+        if (path == null || path.isEmpty()) {
+            throw new RuntimeException("No route found between " + source + " and " + destination);
+        }
+
+        List<LocationResponseDTO> routeDTOs = path.stream()
+                .map(locationName -> {
+                    Optional<Location> locationOpt = locationRepository.findByName(locationName);
+                    return locationOpt.map(location -> modelMapper.map(location, LocationResponseDTO.class))
+                            .orElseThrow(() -> new RuntimeException("Location not found: " + locationName));
+                })
+                .collect(Collectors.toList());
+
+        return routeDTOs;
     }
+
+    @Override
+    public EmissionResponseDTO getBestRouteWithEmission(String source, String destination, String transportMode) {
+        if (!isValidTransportMode(transportMode)) {
+            throw new IllegalArgumentException("Invalid transport mode: " + transportMode);
+        }
+
+        Map<String, List<RouteEdge>> graph = new HashMap<>();
+        graph.put("A", Arrays.asList(new RouteEdge("B", 2), new RouteEdge("C", 4)));
+        graph.put("B", Arrays.asList(new RouteEdge("C", 1), new RouteEdge("D", 7)));
+        graph.put("C", Arrays.asList(new RouteEdge("D", 3)));
+        graph.put("D", new ArrayList<>());
+
+        List<String> path = DjkstraAlgorithm.findShortestPath(source, destination, graph);
+        if (path == null || path.isEmpty()) {
+            throw new RuntimeException("No route found between " + source + " and " + destination);
+        }
+
+        double totalDistance = calculateDistanceFromPath(path, graph);
+        double emission = calculateCarbonEmission(totalDistance, transportMode);
+
+        return new EmissionResponseDTO(path, totalDistance, emission);
+    }
+
+    private boolean isValidTransportMode(String transportMode) {
+        return Arrays.asList("car", "bus", "bike", "walk", "train").contains(transportMode.toLowerCase());
+    }
+
+    private double calculateDistanceFromPath(List<String> path, Map<String, List<RouteEdge>> graph) {
+        double distance = 0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            String current = path.get(i);
+            String next = path.get(i + 1);
+            distance += graph.get(current).stream()
+                    .filter(edge -> edge.getDestination().equals(next))
+                    .findFirst().orElseThrow().getWeight();
+        }
+        return distance;
+    }
+
+    private double calculateCarbonEmission(double distanceKm, String transportMode) {
+        switch (transportMode.toLowerCase()) {
+            case "car": return distanceKm * 0.21;
+            case "bus": return distanceKm * 0.089;
+            case "bike": return 0.0;
+            case "walk": return 0.0;
+            case "train": return distanceKm * 0.041;
+            default: return 0.0;
+        }
+    }
+
 }

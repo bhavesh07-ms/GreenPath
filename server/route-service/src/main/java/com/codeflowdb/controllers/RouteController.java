@@ -1,5 +1,6 @@
 package com.codeflowdb.controllers;
 
+import com.codeflowdb.dto.EmissionResponseDTO;
 import com.codeflowdb.dto.LocationRequestDTO;
 import com.codeflowdb.dto.LocationResponseDTO;
 import com.codeflowdb.model.Location;
@@ -62,9 +63,23 @@ public class RouteController {
     }
 
     @GetMapping("/optimal-path")
-    public ResponseEntity<List<String>> getBestPath(@RequestParam String source, @RequestParam String destination) {
-        List<String> path = routeService.getBestRoute(source, destination);
+    public ResponseEntity<List<LocationResponseDTO>> getBestPath(@RequestParam String source, @RequestParam String destination) {
+        List<LocationResponseDTO> path = routeService.getBestRoute(source, destination);
         return ResponseEntity.ok(path);
     }
 
+    // Endpoint for best route (without emission)
+    @GetMapping("/best")
+    public List<LocationResponseDTO> getBestRoute(@RequestParam String source,
+                                                  @RequestParam String destination) {
+        return routeService.getBestRoute(source, destination);
+    }
+
+    // Endpoint for best route with emission
+    @GetMapping("/best-with-emission")
+    public EmissionResponseDTO getBestRouteWithEmission(@RequestParam String source,
+                                                        @RequestParam String destination,
+                                                        @RequestParam String mode) {
+        return routeService.getBestRouteWithEmission(source, destination, mode);
+    }
 }

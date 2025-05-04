@@ -1,5 +1,6 @@
 package com.codeflowdb.service;
 
+import com.codeflowdb.dto.EmissionResponseDTO;
 import com.codeflowdb.dto.LocationRequestDTO;
 import com.codeflowdb.dto.LocationResponseDTO;
 import com.codeflowdb.model.Location;
@@ -21,5 +22,7 @@ public interface RouteService {
 
     List<LocationResponseDTO> searchByName(String name);
 
-    public List<String> getBestRoute(String source, String destination);
+    public List<LocationResponseDTO> getBestRoute(String source, String destination);
+
+    EmissionResponseDTO getBestRouteWithEmission(String source, String destination, String transportMode);
 }

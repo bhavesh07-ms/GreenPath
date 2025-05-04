@@ -5,12 +5,20 @@ import java.util.*;
 public class DjkstraAlgorithm {
 
     public static class RouteEdge {
-        public String destination;
-        public int cost;
+        private String destination;
+        private int cost;
 
         public RouteEdge(String destination, int cost) {
             this.destination = destination;
             this.cost = cost;
+        }
+
+        public String getDestination() {
+            return destination;
+        }
+
+        public double getWeight() {
+            return cost;
         }
     }
 
