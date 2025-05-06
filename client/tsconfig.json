@@ -24,4 +24,12 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   }
+  {
+    "compilerOptions": {
+      "baseUrl": "./",
+      "paths": {
+        "src/*": ["src/*"]
+      }
+    }
+  }
 }

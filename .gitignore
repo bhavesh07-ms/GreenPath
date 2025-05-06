@@ -8,6 +8,9 @@ aws/.idea
 client/.angular
 client/node_modules
 client/.vscode
+server/carbon-service/target
+server/greenpath-service/target
+server/route-service/target
 #server/carbon-service/src/test
 #server/auth-service/src/test
 #server/eureka-server/src/test
