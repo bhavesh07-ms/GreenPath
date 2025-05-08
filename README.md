@@ -1,172 +1,117 @@
-📌 CodeFlowDB - Git-Like Version Control for Databases
+# 🌿 GreenPath - Sustainable Route Optimization Platform
 
-🔹 CodeFlowDB is a scalable, modern database versioning system that provides Git-like version control for relational & NoSQL databases.
+GreenPath is a full-stack application designed to promote **sustainable travel** by calculating optimized routes between locations and estimating **carbon emissions** based on different transport modes. This platform integrates Java Spring Boot for backend APIs and Angular for the frontend.
 
-🔹 It enables schema versioning, branching, merging, rollback, and time-travel queries, ensuring that database changes are tracked efficiently across multiple environments.
+---
 
-🚀 Features
+## 🚀 Tech Stack
 
-✅ Schema Versioning – Track all changes to database schema in a version-controlled way.
+| Layer        | Technology              |
+|--------------|-------------------------|
+| Backend      | Java 17, Spring Boot 3  |
+| Frontend     | Angular 17 (SCSS, RxJS) |
+| Database     | MYSQL             |
+| Dev Tools    | Maven, Postman, VSCode  |
+| Deployment   | Docker (Planned), AWS (Planned) |
 
-✅ Time-Travel Queries – Query data as it existed at any past timestamp.
+---
 
-✅ Branching & Merging – Isolate database changes in separate branches and merge them safely.
+## 📦 Project Structure
 
-✅ Automatic Sync with Spring Boot Entities – Detect JPA model changes and update schemas automatically.
+greenpath/
+│
+├── server/ # Spring Boot backend
+│ ├── controller/ # REST API controllers
+│ ├── service/ # Business logic layer
+│ ├── dto/ # Data transfer objects
+│ ├── entity/ # JPA entities
+│ └── repository/ # Spring Data JPA
+│
+└── client/ # Angular frontend
+├── src/app/
+│ ├── components/ # UI components
+│ ├── services/ # API services (e.g., route.service.ts)
+│ └── environment/ # API URL configs
 
-✅ Multi-Database Support – Works with PostgreSQL, MongoDB, and MySQL.
+## 🌐 Backend API Overview
 
-✅ Kafka Event-Driven Architecture – Broadcast schema changes to dependent services.
-
-✅ Role-Based Security (JWT, OAuth) – Secure API endpoints for version control.
-
-✅ Monitoring with Prometheus & Grafana – Track schema change logs and system performance.
+### Base URL
+http://localhost:8085/api/v1
 
 
-✅ Microservices Architecture – Built with Spring Boot, Kafka, Docker, and Kubernetes.
+### Endpoints
 
-🛠️ Tech Stack
-Category	Technology
+| Method | Endpoint                        | Description                            |
+|--------|----------------------------------|----------------------------------------|
+| GET    | `/routes/best`                  | Get shortest route between locations   |
+| GET    | `/routes/best-with-emission`    | Get route with carbon emission stats   |
+| GET    | `/locations`                    | List all supported locations           |
+| POST   | `/locations`                    | Add a new location                     |
 
-Backend	Java (Spring Boot 3.2), Spring Security, Spring AOP, Hibernate
+### Sample Request
 
-Database	PostgreSQL, MongoDB, MySQL
+GET /routes/best-with-emission?source=Mumbai Airport&destination=Gateway of India&mode=bus
 
-Message Queue	Kafka (Schema Change Events)
 
-Service Discovery	Eureka Server
+### Sample Response
 
-Logging & Monitoring	Prometheus, Grafana, ELK Stack
+```json
+{
+  "totalDistance": 18.93,
+  "route": [
+    "Mumbai Airport",
+    "Gateway of India"
+  ],
+  "carbonEmission": 3.97
+}
 
-Containerization	Docker, Kubernetes
+💡 Features
+🧭 Shortest route finder using Dijkstra's Algorithm
 
-Frontend (Future)	Angular, TypeScript
+🌱 Carbon emission calculation based on transport mode
 
-API Security	JWT, OAuth2 (Keycloak)
+📍 Support for dynamic location data (via DB)
 
-📂 Microservices Architecture
+🔐 Modular code structure for adding new services easily
 
-Service	Responsibilities	Port
+📊 Future-ready for analytics (e.g., most eco-friendly routes)
 
-API Gateway	Routes API requests, handles authentication	8080
+🖥️ Frontend (Angular Setup)
 
-Auth Service	JWT, OAuth2 authentication, user roles	8081
+npm install -g @angular/cli
+ng new client --routing --style=scss
+cd client
+npm install
+ng serve --open
 
-Versioning Service	Tracks schema & data changes, manages rollbacks	8082
+Make sure to update environment.ts:
 
-Query Service	Handles time-travel queries & versioned data retrieval	8083
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8085/api/v1'
+};
 
-Storage Service	Stores schema & data versions efficiently	8084
+⚙️ Run Backend
 
-Notification Service	Sends alerts for schema changes & conflicts	8085
+cd server
+./mvnw spring-boot:run
 
-Eureka Server	Service discovery for microservices	8761
+📌 Future Enhancements
+Add user authentication & rate limiting
 
-🔧 Installation & Setup
+Dockerize frontend/backend
 
-📌 Prerequisites
+Integrate with Google Maps for real-time directions
 
-Ensure you have the following installed:
+ML-based emission prediction models
 
-Java 17+
-Maven
-Docker & Docker Compose
-Kafka & Zookeeper
-PostgreSQL & MongoDB
-Prometheus & Grafana
+CI/CD Pipeline using GitHub Actions or Jenkins
 
-1️⃣ Clone the Repository
-sh
-Copy
-Edit
-git clone https://github.com/yourusername/CodeFlowDB.git
-cd CodeFlowDB
+🧠 Contributing
+Pull requests are welcome! For major changes, please open an issue first.
 
-2️⃣ Start Eureka Server
-sh
-Copy
-Edit
-cd eureka-server
-mvn spring-boot:run
+👨‍💻 Authors
+Bhavesh M. (@bhavesh07-ms)
 
-3️⃣ Start Kafka & Zookeeper
-Run the following commands inside Kafka directory:
 
-sh
-Copy
-Edit
-bin\windows\zookeeper-server-start.bat config\zookeeper.properties
-bin\windows\kafka-server-start.bat config\server.properties
 
-4️⃣ Start Microservices
-Run each service in separate terminals:
-
-sh
-Copy
-Edit
-cd auth-service && mvn spring-boot:run
-cd versioning-service && mvn spring-boot:run
-cd query-service && mvn spring-boot:run
-cd storage-service && mvn spring-boot:run
-cd notification-service && mvn spring-boot:run
-
-5️⃣ Run Docker Containers (Optional)
-sh
-Copy
-Edit
-docker-compose up -d
-
-🛠 API Endpoints
-Service	Method	Endpoint	Description
-Auth Service	POST	/auth/login	Login & generate JWT
-Auth Service	POST	/auth/register	Register new user
-Versioning Service	POST	/schema/save	Save a new schema version
-Versioning Service	GET	/schema/history/{id}	Get schema history
-Query Service	GET	/query/timetravel?timestamp=2024-01-01	Fetch data at past timestamp
-Notification Service	GET	/notifications	Get schema change alerts
-
-🚀 Roadmap
-Phase 1: Core Development
-
-✅ Implement Microservices Architecture
-
-✅ Build Schema Versioning APIs
-
-✅ Integrate PostgreSQL, MongoDB, and MySQL
-
-Phase 2: Security & Monitoring
-
-🔄 Implement JWT & OAuth Authentication
-
-🔄 Setup Prometheus & Grafana for Monitoring
-
-Phase 3: Frontend & Cloud Deployment
-
-🔄 Develop Angular UI for Schema Management
-
-🔄 Deploy on AWS/Kubernetes
-
-🛠️ Contribution Guidelines
-Want to contribute? Follow these steps:
-
-Fork the repository
-
-Create a feature branch (git checkout -b feature-name)
-Commit your changes (git commit -m "Added feature")
-Push to GitHub (git push origin feature-name)
-Create a Pull Request
-
-📜 License
-MIT License - Use this project freely with attribution.
-
-📞 Contact
-
-👤 Bhavesh Mahajan
-
-📩 Email: bhmahajan055@gmail.com
-
-🔗 LinkedIn: linkedin.com/in/bhavesh-mahajan007
-
-🚀 Ready to Get Started?
-Clone the repo and start building the future of database versioning!
-Let me know if you need modifications! 🚀
