@@ -10,7 +10,6 @@
           "style": "scss"
         }
       },
-      
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -44,12 +43,6 @@
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-              {
-                "replace": "src/environments/environment.ts",
-                "with": "src/environments/environment.prod.ts"
-              }
-            ],
               "budgets": [
                 {
                   "type": "initial",
@@ -112,6 +105,6 @@
     }
   },
   "cli": {
-    "analytics": "9d00c460-f60a-46f2-a6fb-8f2d7192cbc1"
+    "analytics": "46c8c6a3-a25e-4c4a-a5a9-62807cecdc0b"
   }
 }
