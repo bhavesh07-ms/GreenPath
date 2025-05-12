@@ -8,11 +8,14 @@ aws/.idea
 client/.angular
 client/node_modules
 client/.vscode
+client/angular.json
+client/package-lock.json
+client/package.json
 server/carbon-service/target
 server/greenpath-service/target
 server/route-service/target
 #server/carbon-service/src/test
-#server/auth-service/src/test
+#server/auth-service/src/testgit 
 #server/eureka-server/src/test
 #server/greenpath-service/src/test
 #server/notification-service/src/test
