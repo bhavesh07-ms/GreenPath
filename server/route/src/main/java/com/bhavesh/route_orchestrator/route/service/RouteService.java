@@ -20,16 +20,16 @@ public class RouteService {
         Map<String, Object> result = new HashMap<>();
 
         // 1. Check Redis for existing session
-        String redisCheckUrl = "http://redis-session-service/api/session/check";
-        Boolean sessionExists = restTemplate.postForObject(redisCheckUrl, request, Boolean.class);
-
-        if (Boolean.TRUE.equals(sessionExists)) {
-            String redisGetUrl = "http://redis-session-service/api/session/get";
-            Object savedPath = restTemplate.postForObject(redisGetUrl, request, Object.class);
-            result.put("sessionExists", true);
-            result.put("optimalPath", savedPath);
-            return result;
-        }
+//        String redisCheckUrl = "http://redis-session-service/api/session/check";
+//        Boolean sessionExists = restTemplate.postForObject(redisCheckUrl, request, Boolean.class);
+//
+//        if (Boolean.TRUE.equals(sessionExists)) {
+//            String redisGetUrl = "http://redis-session-service/api/session/get";
+//            Object savedPath = restTemplate.postForObject(redisGetUrl, request, Object.class);
+//            result.put("sessionExists", true);
+//            result.put("optimalPath", savedPath);
+//            return result;
+//        }
 
         // 2. Get graph segment from PostGIS
         String graphUrl = "http://postgis-data-service/api/graph/fetch";
@@ -45,8 +45,8 @@ public class RouteService {
         RedisStoreRequestDTO storeDTO = new RedisStoreRequestDTO(request.getSessionId(), optimalPath);
         restTemplate.postForObject(redisStoreUrl, storeDTO, Void.class);
 
-        result.put("sessionExists", false);
-        result.put("graphSegment", graph);
+        //result.put("sessionExists", false);
+        //result.put("graphSegment", graph);
         result.put("optimalPath", optimalPath);
         return result;
     }
