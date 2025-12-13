@@ -1,0 +1,60 @@
+pipeline {
+    agent any
+
+    environment {
+        SERVICE_NAME = "path-planner"
+        REGISTRY = "docker.io/bhavesh"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        MANIFEST_REPO = "git@github.com:bhavesh/greenpath-manifests.git"
+    }
+
+    stages {
+
+        stage("Checkout Code") {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage("Build & Test") {
+            steps {
+                sh "mvn clean test"
+            }
+        }
+
+        stage("Build Docker Image") {
+            steps {
+                sh """
+                docker build -t $REGISTRY/$SERVICE_NAME:$IMAGE_TAG .
+                """
+            }
+        }
+
+        stage("Push Docker Image") {
+            steps {
+                withCredentials([usernamePassword(
+                        credentialsId: 'dockerhub-creds',
+                        usernameVariable: 'USER',
+                        passwordVariable: 'PASS'
+                )]) {
+                    sh """
+                    docker login -u $USER -p $PASS
+                    docker push $REGISTRY/$SERVICE_NAME:$IMAGE_TAG
+                    """
+                }
+            }
+        }
+
+        stage("Update Manifest Repo") {
+            steps {
+                sh """
+                git clone $MANIFEST_REPO
+                cd greenpath-manifests/dev/$SERVICE_NAME
+                sed -i 's|image:.*|image: $REGISTRY/$SERVICE_NAME:$IMAGE_TAG|' deployment.yaml
+                git commit -am "Update $SERVICE_NAME to $IMAGE_TAG"
+                git push
+                """
+            }
+        }
+    }
+}
