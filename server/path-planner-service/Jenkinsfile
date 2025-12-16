@@ -4,13 +4,14 @@ pipeline {
     environment {
         SERVICE_NAME = "path-planner"
         REGISTRY = "docker.io/bhavesh"
-        IMAGE_TAG = "${BUILD_NUMBER}"
-        MANIFEST_REPO = "git@github.com:bhavesh/greenpath-manifests.git"
+        IMAGE_TAG = "${GIT_COMMIT}"
+        MANIFEST_REPO = "git@github.com/bhavesh07-ms/greenpath-manifests"
+        ENV = "dev"
     }
 
     stages {
 
-        stage("Checkout Code") {
+        stage("Checkout Source") {
             steps {
                 checkout scm
             }
@@ -33,9 +34,9 @@ pipeline {
         stage("Push Docker Image") {
             steps {
                 withCredentials([usernamePassword(
-                        credentialsId: 'dockerhub-creds',
-                        usernameVariable: 'USER',
-                        passwordVariable: 'PASS'
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'USER',
+                    passwordVariable: 'PASS'
                 )]) {
                     sh """
                     docker login -u $USER -p $PASS
@@ -45,13 +46,17 @@ pipeline {
             }
         }
 
-        stage("Update Manifest Repo") {
+        stage("Update GitOps Manifests") {
             steps {
                 sh """
+                rm -rf greenpath-manifests
                 git clone $MANIFEST_REPO
-                cd greenpath-manifests/dev/$SERVICE_NAME
+                cd greenpath-manifests/$ENV/$SERVICE_NAME
+
                 sed -i 's|image:.*|image: $REGISTRY/$SERVICE_NAME:$IMAGE_TAG|' deployment.yaml
-                git commit -am "Update $SERVICE_NAME to $IMAGE_TAG"
+
+                git add deployment.yaml
+                git commit -m "chore($SERVICE_NAME): deploy $IMAGE_TAG"
                 git push
                 """
             }

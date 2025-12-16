@@ -1,4 +1,19 @@
-FROM ubuntu:latest
-LABEL authors="Admin"
+# ---------- Build stage ----------
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-ENTRYPOINT ["top", "-b"]
+# ---------- Runtime stage ----------
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+
+# Non-root user (VERY IMPORTANT)
+RUN addgroup -S app && adduser -S app -G app
+USER app
+
+COPY --from=builder /app/target/*.jar app.jar
+
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
