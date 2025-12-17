@@ -4,13 +4,14 @@ pipeline {
     environment {
         SERVICE_NAME = "path-planner"
         REGISTRY = "docker.io/bhavesh"
-        IMAGE_TAG = "${BUILD_NUMBER}"
-        MANIFEST_REPO = "git@github.com:bhavesh/greenpath-manifests.git"
+        IMAGE_TAG = "${GIT_COMMIT}"
+        MANIFEST_REPO = "git@github.com:bhavesh07-ms/greenpath-manifests.git"
+        ENV = "dev"
     }
 
     stages {
 
-        stage("Checkout Code") {
+        stage("Checkout Source") {
             steps {
                 checkout scm
             }
@@ -18,14 +19,14 @@ pipeline {
 
         stage("Build & Test") {
             steps {
-                sh "mvn clean test"
+                sh "mvn clean package"
             }
         }
 
         stage("Build Docker Image") {
             steps {
                 sh """
-                docker build -t $REGISTRY/$SERVICE_NAME:$IMAGE_TAG .
+                docker build -t ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG} .
                 """
             }
         }
@@ -33,27 +34,36 @@ pipeline {
         stage("Push Docker Image") {
             steps {
                 withCredentials([usernamePassword(
-                        credentialsId: 'dockerhub-creds',
-                        usernameVariable: 'USER',
-                        passwordVariable: 'PASS'
+                    credentialsId: 'dockerhub-creds',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
                 )]) {
                     sh """
-                    docker login -u $USER -p $PASS
-                    docker push $REGISTRY/$SERVICE_NAME:$IMAGE_TAG
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    docker push ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG}
                     """
                 }
             }
         }
 
-        stage("Update Manifest Repo") {
+        stage("Update GitOps Manifests") {
             steps {
-                sh """
-                git clone $MANIFEST_REPO
-                cd greenpath-manifests/dev/$SERVICE_NAME
-                sed -i 's|image:.*|image: $REGISTRY/$SERVICE_NAME:$IMAGE_TAG|' deployment.yaml
-                git commit -am "Update $SERVICE_NAME to $IMAGE_TAG"
-                git push
-                """
+                sshagent(credentials: ['github-ssh']) {
+                    sh """
+                    rm -rf greenpath-manifests
+                    git clone ${MANIFEST_REPO}
+                    cd greenpath-manifests/${ENV}/${SERVICE_NAME}
+
+                    sed -i 's|image:.*|image: ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG}|' deployment.yaml
+
+                    git config user.email "jenkins@ci.local"
+                    git config user.name "jenkins-ci"
+
+                    git add deployment.yaml
+                    git commit -m "chore(${SERVICE_NAME}): deploy ${IMAGE_TAG}"
+                    git push
+                    """
+                }
             }
         }
     }
