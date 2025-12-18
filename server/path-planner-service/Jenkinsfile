@@ -17,9 +17,17 @@ pipeline {
             }
         }
 
+         stage("Build commonutils") {
+                      steps {
+                          dir("commonutils") {
+                              sh "mvn clean install"
+                          }
+                  }
+            }
+
         stage("Build & Test") {
             steps {
-                sh "mvn clean test"
+                sh "mvn clean install"
             }
         }
 
@@ -46,20 +54,16 @@ pipeline {
             }
         }
 
-        stage("Update GitOps Manifests") {
+        stage("Deploy to ECS") {
             steps {
                 sh """
-                rm -rf greenpath-manifests
-                git clone $MANIFEST_REPO
-                cd greenpath-manifests/$ENV/$SERVICE_NAME
-
-                sed -i 's|image:.*|image: $REGISTRY/$SERVICE_NAME:$IMAGE_TAG|' deployment.yaml
-
-                git add deployment.yaml
-                git commit -m "chore($SERVICE_NAME): deploy $IMAGE_TAG"
-                git push
+                aws ecs update-service \
+                  --cluster greenpath-cluster \
+                  --service path-planner-service \
+                  --force-new-deployment
                 """
             }
         }
+
     }
 }
