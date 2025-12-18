@@ -18,7 +18,7 @@ pipeline {
         }
         stage("Build commonutils") {
                       steps {
-                          dir("commonutils") {
+                          dir("server/commonutils") {
                               sh "mvn clean install"
                           }
                   }
