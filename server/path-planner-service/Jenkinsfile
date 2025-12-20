@@ -5,7 +5,7 @@ pipeline {
         SERVICE_NAME = "path-planner"
         REGISTRY = "docker.io/bhavesh"
         IMAGE_TAG = "${GIT_COMMIT}"
-        MANIFEST_REPO = "git@github.com/bhavesh07-ms/greenpath-manifests"
+        MANIFEST_REPO = "git@github.com:bhavesh07-ms/greenpath-manifests.git"
         ENV = "dev"
     }
 
@@ -16,39 +16,43 @@ pipeline {
                 checkout scm
             }
         }
-
-         stage("Build commonutils") {
+        stage("Build commonutils") {
                       steps {
-                          dir("commonutils") {
+                          dir("server/commonutils") {
                               sh "mvn clean install"
                           }
                   }
             }
 
         stage("Build & Test") {
-            steps {
-                sh "mvn clean install"
-            }
+    steps {
+        dir("server/path-planner-service") {
+            sh "mvn clean package"
         }
+    }
+}
 
-        stage("Build Docker Image") {
-            steps {
-                sh """
-                docker build -t $REGISTRY/$SERVICE_NAME:$IMAGE_TAG .
-                """
-            }
+stage("Build Docker Image") {
+    steps {
+        dir("server/path-planner-service") {
+            sh """
+            docker build -t ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG} .
+            """
         }
+    }
+}
+
 
         stage("Push Docker Image") {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'USER',
-                    passwordVariable: 'PASS'
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
                 )]) {
                     sh """
-                    docker login -u $USER -p $PASS
-                    docker push $REGISTRY/$SERVICE_NAME:$IMAGE_TAG
+                    echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                    docker push ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG}
                     """
                 }
             }
@@ -64,6 +68,5 @@ pipeline {
                 """
             }
         }
-
     }
 }
