@@ -30,6 +30,7 @@ public class CachedPathDoc {
     private Instant lastRequestedAt;
     private Instant createdAt;
     private String cacheKey;
+    private String status;
 
 
     public CachedPathDoc(String cacheKey) {
