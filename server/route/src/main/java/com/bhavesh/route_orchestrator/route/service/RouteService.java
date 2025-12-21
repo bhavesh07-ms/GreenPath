@@ -3,6 +3,7 @@ package com.bhavesh.route_orchestrator.route.service;
 import com.bhavesh.commonutils.commonutils.dto.PathPlannerInputDTO;
 import com.bhavesh.commonutils.commonutils.dto.RedisStoreRequestDTO;
 import com.bhavesh.commonutils.commonutils.dto.RouteRequestDTO;
+import com.bhavesh.route_orchestrator.route.aop.EmitRouteActivated;
 import com.bhavesh.route_orchestrator.route.dto.RouteResponseDto;
 import com.bhavesh.route_orchestrator.route.entity.CachedPathDoc;
 import com.bhavesh.route_orchestrator.route.repository.CachedPathRepository;
@@ -68,6 +69,7 @@ public class RouteService {
         return DigestUtils.sha256Hex(rawKey); // Apache commons-codec
     }
 
+    @EmitRouteActivated
     public RouteResponseDto handleRouteRequest(RouteRequestDTO request) {
 
         String routeKey = CacheKeyUtil.routeCacheKey(request);

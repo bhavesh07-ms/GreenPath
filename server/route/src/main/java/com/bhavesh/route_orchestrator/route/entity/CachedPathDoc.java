@@ -30,7 +30,7 @@ public class CachedPathDoc {
     private Instant lastRequestedAt;
     private Instant createdAt;
     private String cacheKey;
-    private String status;
+
 
 
     public CachedPathDoc(String cacheKey) {
@@ -49,6 +49,7 @@ public class CachedPathDoc {
         this.lastRequestedAt = lastRequestedAt;
         this.cacheKey = cacheKey;
         this.createdAt = Instant.now();
+
     }
 
     // getters and setters omitted for brevity — add as needed
