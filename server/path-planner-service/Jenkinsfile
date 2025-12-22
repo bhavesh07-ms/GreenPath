@@ -7,6 +7,11 @@ pipeline {
         IMAGE_TAG = "${GIT_COMMIT}"
         MANIFEST_REPO = "git@github.com:bhavesh07-ms/greenpath-manifests.git"
         ENV = "dev"
+        CLUSTER_NAME = "greenpath-cluster"
+        ECS_SERVICE = "path-planner-service"
+        CODEDEPLOY_APP = "greenpath-codedeploy-app"
+        CODEDEPLOY_GROUP = "greenpath-deployment-group"
+        AWS_REGION = "ap-south-1"
     }
 
     stages {
@@ -68,5 +73,27 @@ stage("Build Docker Image") {
                 """
             }
         }
+         stage("Register ECS Task Definition") {
+                    steps {
+                        sh """
+                        aws ecs register-task-definition \
+                          --cli-input-json file://ecs-task-def.json \
+                          --region ${AWS_REGION}
+                        """
+                    }
+         }
+
+        stage("Deploy via CodeDeploy") {
+            steps {
+                sh """
+                aws deploy create-deployment \
+                  --application-name ${CODEDEPLOY_APP} \
+                  --deployment-group-name ${CODEDEPLOY_GROUP} \
+                  --revision revisionType=AppSpecContent,appSpecContent="{\\"content\\": \\"$(cat appspec.yaml | sed 's/"/\\\\\\"/g')\\"}" \
+                  --region ${AWS_REGION}
+                """
+            }
+
+
     }
 }
