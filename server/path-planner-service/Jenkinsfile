@@ -89,11 +89,10 @@ stage("Build Docker Image") {
                 aws deploy create-deployment \
                   --application-name ${CODEDEPLOY_APP} \
                   --deployment-group-name ${CODEDEPLOY_GROUP} \
-                  --revision revisionType=AppSpecContent,appSpecContent="{\\"content\\": \\"$(cat appspec.yaml | sed 's/"/\\\\\\"/g')\\"}" \
+                  --revision revisionType=AppSpecContent,appSpecContent="{\\"content\\": \\"\\$(cat appspec.yaml | sed 's/"/\\\\\\"/g')\\"}" \
                   --region ${AWS_REGION}
                 """
             }
+        }
 
-
-    }
 }
