@@ -1,0 +1,15 @@
+{
+  "family": "path-planner-task",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "path-planner",
+      "image": "docker.io/bhavesh/path-planner:IMAGE_TAG",
+      "portMappings": [
+        {
+          "containerPort": 8080
+        }
+      ]
+    }
+  ]
+}
