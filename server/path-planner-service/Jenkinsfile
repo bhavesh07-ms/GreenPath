@@ -83,16 +83,19 @@ stage("Build Docker Image") {
                     }
          }
 
-        stage("Deploy via CodeDeploy") {
+        // groovy
+        stage('Deploy via CodeDeploy') {
             steps {
                 sh """
+                APP_SPEC_JSON=\$(sed 's/\"/\\\\\"/g' appspec.yaml | awk 'BEGIN{printf("{\\\\\"content\\\\\": \\\\\"")} {printf \$0} END{printf "\\\\\"}"}')
                 aws deploy create-deployment \
-                  --application-name ${CODEDEPLOY_APP} \
-                  --deployment-group-name ${CODEDEPLOY_GROUP} \
-                  --revision revisionType=AppSpecContent,appSpecContent="{\\"content\\": \\"\\$(cat appspec.yaml | sed 's/"/\\\\\\"/g')\\"}" \
-                  --region ${AWS_REGION}
+                  --application-name "${CODEDEPLOY_APP}" \
+                  --deployment-group-name "${CODEDEPLOY_GROUP}" \
+                  --revision "revisionType=AppSpecContent,appSpecContent=${APP_SPEC_JSON}" \
+                  --region "${AWS_REGION}"
                 """
             }
         }
+
 
 }
