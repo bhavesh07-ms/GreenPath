@@ -5,10 +5,11 @@ pipeline {
         SERVICE_NAME = "path-planner"
         REGISTRY = "docker.io/bhavesh"
         IMAGE_TAG = "${GIT_COMMIT}"
-        MANIFEST_REPO = "git@github.com:bhavesh07-ms/greenpath-manifests.git"
         ENV = "dev"
+
         CLUSTER_NAME = "greenpath-cluster"
         ECS_SERVICE = "path-planner-service"
+
         CODEDEPLOY_APP = "greenpath-codedeploy-app"
         CODEDEPLOY_GROUP = "greenpath-deployment-group"
         AWS_REGION = "ap-south-1"
@@ -21,32 +22,32 @@ pipeline {
                 checkout scm
             }
         }
+
         stage("Build commonutils") {
-                      steps {
-                          dir("server/commonutils") {
-                              sh "mvn clean install"
-                          }
-                  }
+            steps {
+                dir("server/commonutils") {
+                    sh "mvn clean install"
+                }
             }
+        }
 
         stage("Build & Test") {
-    steps {
-        dir("server/path-planner-service") {
-            sh "mvn clean package"
+            steps {
+                dir("server/path-planner-service") {
+                    sh "mvn clean package"
+                }
+            }
         }
-    }
-}
 
-stage("Build Docker Image") {
-    steps {
-        dir("server/path-planner-service") {
-            sh """
-            docker build -t ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG} .
-            """
+        stage("Build Docker Image") {
+            steps {
+                dir("server/path-planner-service") {
+                    sh """
+                    docker build -t ${REGISTRY}/${SERVICE_NAME}:${IMAGE_TAG} .
+                    """
+                }
+            }
         }
-    }
-}
-
 
         stage("Push Docker Image") {
             steps {
@@ -63,39 +64,29 @@ stage("Build Docker Image") {
             }
         }
 
-        stage("Deploy to ECS") {
+        stage("Register ECS Task Definition") {
             steps {
                 sh """
-                aws ecs update-service \
-                  --cluster greenpath-cluster \
-                  --service path-planner-service \
-                  --force-new-deployment
+                aws ecs register-task-definition \
+                  --cli-input-json file://ecs-task-def.json \
+                  --region ${AWS_REGION}
                 """
             }
         }
-         stage("Register ECS Task Definition") {
-                    steps {
-                        sh """
-                        aws ecs register-task-definition \
-                          --cli-input-json file://ecs-task-def.json \
-                          --region ${AWS_REGION}
-                        """
-                    }
-         }
 
-        // groovy
-        stage('Deploy via CodeDeploy') {
+        stage("Deploy via CodeDeploy") {
             steps {
-                sh """
-                APP_SPEC_JSON=\$(sed 's/\"/\\\\\"/g' appspec.yaml | awk 'BEGIN{printf("{\\\\\"content\\\\\": \\\\\"")} {printf \$0} END{printf "\\\\\"}"}')
+                sh '''
+                APP_SPEC_JSON=$(sed 's/"/\\"/g' appspec.yaml | \
+                  awk 'BEGIN{printf("{\\"content\\": \\"")} {printf $0} END{printf "\\"}"}')
+
                 aws deploy create-deployment \
                   --application-name "${CODEDEPLOY_APP}" \
                   --deployment-group-name "${CODEDEPLOY_GROUP}" \
                   --revision "revisionType=AppSpecContent,appSpecContent=${APP_SPEC_JSON}" \
                   --region "${AWS_REGION}"
-                """
+                '''
             }
         }
-
-
+    }
 }
