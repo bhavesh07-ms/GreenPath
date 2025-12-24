@@ -1,6 +1,13 @@
 pipeline {
     agent any
 
+ parameters {
+        choice(
+            name: 'SPRING_PROFILE',
+            choices: ['dev', 'qa', 'prod'],
+            description: 'Spring profile to deploy'
+        )
+    }
     environment {
         SERVICE_NAME = "path-planner"
         REGISTRY = "docker.io/bhavesh"
